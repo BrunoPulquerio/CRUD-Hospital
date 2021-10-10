@@ -1,5 +1,7 @@
-﻿using Domain.Interfaces;
+﻿using Data.Context;
+using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,10 @@ namespace Data.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : Entity
     {
-        protected readonly SqlContext _sqlContext;
+        protected readonly SQLContext _sqlContext;
         protected readonly DbSet<TEntity> CurrentSet;
 
-        public BaseRepository(SqlContext sqlContext)
+        public BaseRepository(SQLContext sqlContext)
         {
             _sqlContext = sqlContext;
             CurrentSet = sqlContext.Set<TEntity>();

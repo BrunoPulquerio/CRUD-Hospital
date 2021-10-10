@@ -46,7 +46,7 @@ namespace Service.Services
 
         public PatientViewModel Update(PatientViewModel obj)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
