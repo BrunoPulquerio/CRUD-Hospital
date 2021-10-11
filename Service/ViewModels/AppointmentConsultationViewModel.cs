@@ -8,29 +8,25 @@ using System.Threading.Tasks;
 namespace Service.ViewModels
 {
 
-    //FALTA PREENCHER, REGRAS DE NEGOCIO
     public class AppointmentConsultationViewModel
     {
+
         public int Id { get; set; }
 
         [Display(Name = "Data do Exame")]
         [Required(ErrorMessage = "Preencha o campo Data do Exame")]
-        [MaxLength(100, ErrorMessage = "O Campo precisa ter no maximo 100 caracteres")]
         public DateTime ExamDate { get; set; }
 
-        [Display(Name = "Nome do Exame")]
-        [Required(ErrorMessage = "Preencha o campo Nome do Exame")]
-        [MaxLength(100, ErrorMessage = "O Campo precisa ter no maximo 100 caracteres")]
+        [Display(Name = "Data da Consulta")]
+        [Required(ErrorMessage = "Preencha o campo Data da Consulta")]
         public DateTime ConsultationDate { get; set; }
 
-        [Display(Name = "Nome do Exame")]
-        [Required(ErrorMessage = "Preencha o campo Nome do Exame")]
-        [MaxLength(100, ErrorMessage = "O Campo precisa ter no maximo 100 caracteres")]
+        [Display(Name = "Registro do Exame")]
+        [Required(ErrorMessage = "Preencha o campo Registro do Exame")]
         public int ExamRegistrationId { get; set; }
 
-        [Display(Name = "Nome do Exame")]
-        [Required(ErrorMessage = "Preencha o campo Nome do Exame")]
-        [MaxLength(100, ErrorMessage = "O Campo precisa ter no maximo 100 caracteres")]
+        [Display(Name = "Paciente")]
+        [Required(ErrorMessage = "Preencha o campo Paciente")]
         public int PatientId { get; set; }
 
 
