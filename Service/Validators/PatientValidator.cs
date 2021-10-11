@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.Validators
 {
-    public class PatientValidator:AbstractValidator<Patient>
+    public class PatientValidator : AbstractValidator<Patient>
     {
         public PatientValidator()
         {
@@ -26,8 +26,8 @@ namespace Service.Validators
                 .NotEmpty().WithMessage("Please enter a valid value.")
                 .NotNull().WithMessage("Please enter a valid value.")
                 .Matches(@"[0-9]+").WithMessage("Seu telefone deve conter numeros.")
-                .MinimumLength(11).WithMessage("O tamanho minimo é de 11 caracteres");
-               
+                .MinimumLength(11).WithMessage("O tamanho minimo é de 11 caracteres")
+                .MaximumLength(11);
         }
 
             private bool ValidatorCPF(string cpf)

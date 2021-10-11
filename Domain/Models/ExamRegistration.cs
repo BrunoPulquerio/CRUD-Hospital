@@ -13,7 +13,7 @@ namespace Domain.Models
 
         public string Note { get; set; }
 
-        public int? TypeOfExamId { get; set; }
+        public int TypeOfExamId { get; set; }
 
         public TypeOfExam TypeOfExam { get; set; }
 
