@@ -46,7 +46,24 @@ namespace Service.Services
 
         public PatientViewModel Update(PatientViewModel obj)
         {
-            throw new NotImplementedException();
+
+            var patient = _baseRepository.Select(obj.Id);
+            if (patient == null)
+            {
+                throw new Exception("Registro não Encontrado");
+            }
+
+            patient.Birthday = obj.Birthday;
+            patient.Name = obj.Name;
+            patient.CPF = obj.CPF;
+            patient.Gender = obj.Gender;
+            patient.Email = obj.Email;
+            patient.PhoneNumber = obj.PhoneNumber;
+
+            _baseRepository.Update(patient);
+
+            return _mapper.Map<PatientViewModel>(patient);
+
         }
     }
 }
