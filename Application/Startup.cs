@@ -1,4 +1,5 @@
 using Application.Configure;
+using Crosscutting.IOC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,8 @@ namespace Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabaseConfig(Configuration);
+            services.AddAutoMapperConfig();
+            services.AddDependencyInjectionConfig();
             services.AddControllersWithViews();
         }
 
