@@ -26,6 +26,7 @@ namespace Service.ViewModels
         [Required(ErrorMessage = "Erro no campo Id do Paciente")]
         public int TypeOfExamId { get; set; }
 
+        public TypeOfExamViewModel TypeOfExam { get; set; }
 
     }
 }

@@ -25,10 +25,13 @@ namespace Service.ViewModels
         [Required(ErrorMessage = "Preencha o campo Registro do Exame")]
         public int ExamRegistrationId { get; set; }
 
+        public ExamRegistrationViewModel ExameRegistration { get; set; }
+
         [Display(Name = "Paciente")]
         [Required(ErrorMessage = "Preencha o campo Paciente")]
         public int PatientId { get; set; }
 
+        public PatientViewModel Patient { get; set; }
 
     }
 }

@@ -40,5 +40,9 @@ namespace Service.ViewModels
         [MaxLength(150, ErrorMessage = "O Campo precisa ter menos que 150 caracteres")]
         public string Email { get; set; }
 
+        public bool IsValid { get; set; }
+
+        public IEnumerable<string> Erros { get; set; 
+
     }
 }

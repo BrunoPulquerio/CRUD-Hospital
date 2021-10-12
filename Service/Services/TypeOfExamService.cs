@@ -29,7 +29,8 @@ namespace Service.Services
 
         public TypeOfExamViewModel Delete(int Id)
         {
-            throw new NotImplementedException();
+            _baseRepository.Delete(Id);
+            return new TypeOfExamViewModel();
         }
 
         public IEnumerable<TypeOfExamViewModel> GetAll()

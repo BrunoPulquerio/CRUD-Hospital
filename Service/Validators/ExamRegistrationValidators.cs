@@ -19,7 +19,7 @@ namespace Service.Validators
            .MaximumLength(1000).WithMessage("O tamanho maximo é de 1000 caracteres");
 
             RuleFor(c => c.TypeOfExamId)
-                .NotNull().WithMessage("Please enter the email.");
+           .NotNull().WithMessage("Please enter the email.");
         }
     }
 }

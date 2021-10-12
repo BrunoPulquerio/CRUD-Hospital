@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service.Interface
 {
-    public class IAppointmentConsultationService
-    {
-        public interface AppointmentConsultationService
+        public interface IAppointmentConsultationService
         {
             IEnumerable<AppointmentConsultationViewModel> GetAll();
 
@@ -22,5 +20,5 @@ namespace Service.Interface
             AppointmentConsultationViewModel Delete(int Id);
 
         }
-    }
+    
 }

@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Domain.Models;
 using Service.Interface;
+using Service.Validators;
 using Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,29 @@ namespace Service.Services
 
         public PatientViewModel Create(PatientViewModel obj)
         {
-            throw new NotImplementedException();
+         
+            PatientValidator validator = new PatientValidator();
+            var patient = _mapper.Map<Patient>(obj);
+            var validationResult = validator.Validate(patient);
+
+                if (!validationResult.IsValid)
+                {
+                    obj.IsValid = false;
+                    obj.Erros = (IEnumerable<string>)validationResult.Errors;
+                    return obj;
+                }
+
+                _baseRepository.Insert(patient);
+                obj.IsValid = true;
+                return obj;
+
         }
+        
 
         public PatientViewModel Delete(int Id)
         {
-            throw new NotImplementedException();
+            _baseRepository.Delete(Id);
+            return new PatientViewModel();
         }
 
         public IEnumerable<PatientViewModel> GetAll()

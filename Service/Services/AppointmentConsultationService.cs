@@ -29,7 +29,8 @@ namespace Service.Services
 
         public AppointmentConsultationViewModel Delete(int Id)
         {
-            throw new NotImplementedException();
+            _baseRepository.Delete(Id);
+            return new AppointmentConsultationViewModel();
         }
 
         public IEnumerable<AppointmentConsultationViewModel> GetAll()

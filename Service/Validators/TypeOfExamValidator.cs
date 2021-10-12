@@ -15,8 +15,8 @@ namespace Service.Validators
                  RuleFor(c => c.Name)
                 .MaximumLength(100).WithMessage("O tamanho maximo é de 100 caracteres");
 
-                RuleFor(c => c.Description)
-               .MaximumLength(256).WithMessage("O tamanho maximo é de 256 caracteres");
+                 RuleFor(c => c.Description)
+                .MaximumLength(256).WithMessage("O tamanho maximo é de 256 caracteres");
 
         }
     }
