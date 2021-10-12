@@ -33,5 +33,7 @@ namespace Service.ViewModels
 
         public PatientViewModel Patient { get; set; }
 
+        public bool IsValid { get; set; }
+
     }
 }

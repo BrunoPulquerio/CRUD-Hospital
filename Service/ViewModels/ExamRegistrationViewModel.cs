@@ -28,5 +28,7 @@ namespace Service.ViewModels
 
         public TypeOfExamViewModel TypeOfExam { get; set; }
 
+        public bool IsValid { get; set; }
+
     }
 }

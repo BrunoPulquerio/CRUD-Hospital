@@ -9,26 +9,27 @@ using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
-    public class PatientController : Controller
+    public class TypeOfExamController : Controller
     {
-        private readonly IPatientService _patientService;
+        private readonly ITypeOfExamService _typeofexamService;
 
-        public PatientController(IPatientService patientService) {
+        public TypeOfExamController(ITypeOfExamService typeofexamService)
+        {
 
-            _patientService = patientService;
-        
+            _typeofexamService = typeofexamService;
+
         }
 
         public ActionResult Index()
         {
-            var patients = _patientService.GetAll();
-            return View(patients);
+            var typeofexams = _typeofexamService.GetAll();
+            return View(typeofexams);
         }
 
         public ActionResult Details(int id)
         {
-            var patient = _patientService.GetbyId(id);
-            return View(patient);
+            var typeofexam = _typeofexamService.GetbyId(id);
+            return View(typeofexam);
         }
 
         public ActionResult Create()
@@ -38,13 +39,14 @@ namespace Application.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PatientViewModel obj)
+        public ActionResult Create(TypeOfExamViewModel obj)
         {
             if (ModelState.IsValid)
             {
-                var patient = _patientService.Create(obj);
-                if (!patient.IsValid) {
-                    return View(patient);
+                var typeofexam = _typeofexamService.Create(obj);
+                if (!typeofexam.IsValid)
+                {
+                    return View(typeofexam);
                 }
                 return RedirectToAction("Index");
             }
@@ -53,20 +55,20 @@ namespace Application.Controllers
 
         public ActionResult Edit(int id)
         {
-            var patient = _patientService.GetbyId(id);
-            return View(patient);
+            var typeofexam = _typeofexamService.GetbyId(id);
+            return View(typeofexam);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(PatientViewModel obj)
+        public ActionResult Edit(TypeOfExamViewModel obj)
         {
             if (ModelState.IsValid)
             {
-                var patient = _patientService.Update(obj);
-                if (!patient.IsValid)
+                var typeofexam = _typeofexamService.Update(obj);
+                if (!typeofexam.IsValid)
                 {
-                    return View(patient);
+                    return View(typeofexam);
                 }
                 return RedirectToAction("Index");
             }
@@ -75,21 +77,21 @@ namespace Application.Controllers
 
         public ActionResult Delete(int id)
         {
-            var patient = _patientService.GetbyId(id);
-            return View(patient);
+            var typeofexam = _typeofexamService.GetbyId(id);
+            return View(typeofexam);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(PatientViewModel obj)
+        public ActionResult Delete(TypeOfExamViewModel obj)
         {
 
             if (ModelState.IsValid)
             {
-                var patient = _patientService.Delete(obj.Id);
-                if (!patient.IsValid)
+                var typeofexam = _typeofexamService.Delete(obj.Id);
+                if (!typeofexam.IsValid)
                 {
-                    return View(patient);
+                    return View(typeofexam);
                 }
                 return RedirectToAction("Index");
             }

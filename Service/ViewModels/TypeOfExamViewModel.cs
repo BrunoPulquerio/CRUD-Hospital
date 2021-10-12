@@ -21,6 +21,6 @@ namespace Service.ViewModels
         [Required(ErrorMessage = "Preencha o campo Descrição do Exame")]
         [MaxLength(1000, ErrorMessage = "O campo precisa ter no maximo 100 caracteres")]
         public string Description { get; set; }
-
+        public bool IsValid { get; set; }
     }
 }
