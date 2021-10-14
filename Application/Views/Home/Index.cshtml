@@ -1,8 +1,149 @@
-﻿@{
+﻿@model Service.ViewModels.DashboardViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+<script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+
+<div class="app-main__outer">
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="fa fa-star"></i>
+                        </i>
+                    </div>
+                    <div>
+                        DASHBOARD CRUD NEOH
+                        <div class="page-title-subheading">
+                            DASHBOARD CRUD
+                        </div>
+                    </div>
+                </div>
+                <div class="page-title-actions">
+
+                    <div class="d-inline-block dropdown">
+                        <a href="/AppointmentConsultation/Create" class="btn-shadow dropdown-toggle btn btn-info">
+                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                <i class="fa fa-business-time fa-w-20"></i>
+                            </span>
+                            Marcar Consulta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>            <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-midnight-bloom">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading"> Consultas</div>
+                            <div class="widget-subheading">Total Consultas no Sistema</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>@Model.totalConsultation</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-arielle-smile">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Clientes</div>
+                            <div class="widget-subheading">Total clientes do Sistema</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>@Model.totalPatients</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-grow-early">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Exames</div>
+                            <div class="widget-subheading">Todos os exame</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>@Model.totalExams</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Products Sold</div>
+                            <div class="widget-subheading">Revenue streams</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-warning"><span>$14M</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">
+                        Ultimas Consultas
+                        <div class="btn-actions-pane-right">
+
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Protocolo</th>
+                                    <th>Nome</th>
+                                    <th class="text-center">Exame</th>
+                                    <th class="text-center">Data Consulta</th>
+                                    <th class="text-center">Data Exame</th>
+                                    <th class="text-center">Detalhe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.listConsultation)
+                                {
+                                <tr>
+                                    <td class="text-center text-muted">#@item.Id</td>
+                                    <td>
+                                        <div class="widget-content p-0">
+                                            <div class="widget-content-wrapper">
+
+                                                <div class="widget-content-left flex2">
+                                                    <div class="widget-heading">@item.Patient.Name</div>
+                                                    <div class="widget-subheading opacity-7">@item.Patient.CPF</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">@item.ExameRegistration.Name</td>
+                                    <td class="text-center">@item.ConsultationDate</td>
+                                    <td class="text-center">@item.ExamDate</td>
+
+                                    <td class="text-center">
+                                        <a href="/Patient/Details/@item.PatientId" class="btn btn-primary btn-sm">Details</a>
+                                    </td>
+                                </tr>
+                                
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>

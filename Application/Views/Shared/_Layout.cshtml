@@ -9,9 +9,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background: rgb(0,36,34); background: linear-gradient(90deg, rgba(0,36,34,1) 0%, rgba(9,118,121,1) 12%, rgba(0,212,255,1) 100%);">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Application</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/CRUD_NEOH-removebg-preview.png" width="30%"/></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,10 +19,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="color:white"><font color="white"><b>Home</b></font></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Patient" asp-action="Index" style="color:white"><font color="white"><b>Pacientes</b></font></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfExam" asp-action="Index" style="color:white"><font color="white"><b>Tipo do Exame</b></font></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ExamRegistration" asp-action="Index" style="color:white"><font color="white"><b>Registra Exame</b></font></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AppointmentConsultation" asp-action="Index" style="color:white"><font color="white"><b>Marca Consulta</b></font></a>
                         </li>
                     </ul>
                 </div>
@@ -46,3 +55,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

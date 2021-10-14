@@ -4,16 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<h1>Lista de Consultas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Marca Consulta</a>
 </p>
+<input id="search" type="text" class="form-control" placeholder="Buscar geral.......">
+<br>
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Protocolo
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExamDate)
@@ -22,40 +25,50 @@
                 @Html.DisplayNameFor(model => model.ConsultationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExamRegistrationId)
+                @Html.DisplayNameFor(model => model.ExameRegistration.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PatientId)
+                @Html.DisplayNameFor(model => model.Patient.Name)
             </th>
-            
+
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExamDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsultationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExamRegistrationId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PatientId)
-            </td>
-                        
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-}
+    <tbody id="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExamDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsultationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExameRegistration.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.Name)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Delete", "Delete", null, new { id = item.Id }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script>
+    $("#search").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#table tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+</script>

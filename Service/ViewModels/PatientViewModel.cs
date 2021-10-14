@@ -42,7 +42,7 @@ namespace Service.ViewModels
 
         public bool IsValid { get; set; }
 
-        public IEnumerable<string> Erros { get; set; } 
+        public IList<string> Erros { get; set; }
 
     }
 }

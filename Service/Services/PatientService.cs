@@ -15,11 +15,13 @@ namespace Service.Services
     public class PatientService:IPatientService
     {
         private readonly IBaseRepository<Patient> _baseRepository;
+        private readonly IPatientRepository _patientRepository;
         private readonly IMapper _mapper; 
 
-        public PatientService(IBaseRepository<Patient> baseRepository, IMapper mapper)
+        public PatientService(IBaseRepository<Patient> baseRepository, IPatientRepository patientRepository, IMapper mapper)
         {
             _baseRepository = baseRepository;
+            _patientRepository = patientRepository;
             _mapper = mapper;
         }
 
@@ -32,8 +34,26 @@ namespace Service.Services
 
                 if (!validationResult.IsValid)
                 {
+                    obj.Erros = new List<string>();
                     obj.IsValid = false;
-                    obj.Erros = (IEnumerable<string>)validationResult.Errors;
+                    foreach(var alt in validationResult.Errors)
+                    {
+                    obj.Erros.Add(alt.ErrorMessage.ToString());
+                    }
+                    return obj;
+                }
+
+                var cpfPatient = _patientRepository.GetByCpfOrName(obj.CPF);
+
+                if(cpfPatient != null)
+                {
+                    if(obj.CPF == cpfPatient.CPF)
+                        {
+                        obj.Erros = new List<string>();
+                        obj.IsValid = false;
+                        obj.Erros.Add("CPF já existe");
+                       }
+
                     return obj;
                 }
 
@@ -47,7 +67,7 @@ namespace Service.Services
         public PatientViewModel Delete(int Id)
         {
             _baseRepository.Delete(Id);
-            return new PatientViewModel();
+            return new PatientViewModel() { IsValid  = true};
         }
 
         public IEnumerable<PatientViewModel> GetAll()
@@ -60,6 +80,17 @@ namespace Service.Services
         {
             var patient = _baseRepository.Select(Id);
             return _mapper.Map<PatientViewModel>(patient);
+        }
+
+        public PatientViewModel GetByNameOrCpf(string nameOfCpf)
+        {
+            var patient = _patientRepository.GetByCpfOrName(nameOfCpf);
+            var obj = new Patient();
+            if(patient != null)
+            {
+                obj = patient;
+            }
+            return _mapper.Map<PatientViewModel>(obj);
         }
 
         public PatientViewModel Update(PatientViewModel obj)
@@ -79,8 +110,8 @@ namespace Service.Services
             patient.PhoneNumber = obj.PhoneNumber;
 
             _baseRepository.Update(patient);
-
-            return _mapper.Map<PatientViewModel>(patient);
+            obj.IsValid = true;
+            return obj;
 
         }
     }

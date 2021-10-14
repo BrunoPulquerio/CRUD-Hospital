@@ -19,5 +19,7 @@ namespace Service.Interface
 
         PatientViewModel Delete(int Id);
 
+        PatientViewModel GetByNameOrCpf(string nameOrCpf);
+
     }
 }

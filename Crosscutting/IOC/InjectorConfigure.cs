@@ -20,6 +20,10 @@ namespace Crosscutting.IOC
             services.AddScoped(typeof(IExamRegistrationService), typeof(ExamRegistrationService));
             services.AddScoped(typeof(ITypeOfExamService), typeof(TypeOfExamService));
             services.AddScoped(typeof(IAppointmentConsultationService), typeof(AppointmentConsultationService));
+            services.AddScoped(typeof(IExamRegistrationRepostory), typeof(ExamRegistrationRepository));
+            services.AddScoped(typeof(IAppointmentConsultationRepository), typeof(AppointmentConsultationRepository));
+            services.AddScoped(typeof(IPatientRepository), typeof(PatientRepository));
+            services.AddScoped(typeof(IDashboardService), typeof(DashboardService));
         }
     }
 }

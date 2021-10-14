@@ -4,19 +4,83 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>AppointmentConsultationViewModel</h4>
+
 <hr />
+@if (Model != null)
+{
+    @if (!Model.IsValid)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+
+            <b>Erros de Validação</b> <br />
+            @foreach (var alt in Model.Erros)
+            {
+                <p>@alt</p>
+            }
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label class="control-label">Buscar paciente por Nome ou CPF</label>
+                <div class="md-10">
+                    <input class="form-control" type="text" name="PatientNameOrCpf" id="PatientNameOrCpf" />
+
+                </div>
+                <div class="md-2">
+                    <a style="margin: 12px;" class="btn btn-info" onclick="FillPatient()">Pesquisar</a>
+                </div>
+
             </div>
+            <div class="form-group notPatient" id="notPatient" style="display: none;">
+                <hr />
+
+                <div class="col-12">
+                    <h3>Pacinte não encontrado, desejar cadastra um novo paciente? clique no link abaixo</h3>
+                    <a href="/Patient/Create" target="_blank"> Cadastre aqui</a>
+                </div>
+                <hr />
+
+            </div>
+            <div class="form-group infoPatient" style="display: block;">
+                <hr />
+                <div class="col-12">
+                    <h5>Pacinte Localizado</h5>
+                    <p><b>Nome:</b> <p id="namePc">@Model.Patient.Name</p></p>
+                    <p><b>CPF:</b> <p id="cpfPc">@Model.Patient.CPF</p></p>
+                    <p><b>Telefone:</b> <p id="phonePc">@Model.Patient.PhoneNumber</p></p>
+                </div>
+                <hr />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOfExamId" class="control-label"></label>
+                @Html.DropDownList("TypeOfExamId", null, new { @class = "form-control", @onchange = "FillExamRegistrationSelect(this)" })
+                <span asp-validation-for="TypeOfExamId" class="text-danger"></span>
+            </div>
+            <div class="form-group examArea" style="display:block">
+                <label asp-for="ExamRegistrationId" class="control-label"></label>
+
+                @Html.DropDownList("ExamRegistrationId", null, new { @class = "form-control" })
+                <span asp-validation-for="ExamRegistrationId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="ExamDate" class="control-label"></label>
                 <input asp-for="ExamDate" class="form-control" />
@@ -27,31 +91,78 @@
                 <input asp-for="ConsultationDate" class="form-control" />
                 <span asp-validation-for="ConsultationDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="ExamRegistrationId" class="control-label"></label>
-                <input asp-for="ExamRegistrationId" class="form-control" />
-                <span asp-validation-for="ExamRegistrationId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
-                <input asp-for="PatientId" class="form-control" />
-                <span asp-validation-for="PatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsValid" /> @Html.DisplayNameFor(model => model.IsValid)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Marcar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
+
+<script>
+    function FillPatient() {
+        var input = document.querySelector("#PatientNameOrCpf");
+        var texto = input.value;
+
+        var data = httpGet('/AppointmentConsultation/FillPatient?nameOrCpf', texto);
+        console.log(data);
+        if (data.name == null) {
+            var notPatient = document.getElementsByClassName('notPatient');
+            notPatient[0].style.display = 'block';
+            var infoPatient = document.getElementsByClassName('infoPatient');
+            infoPatient[0].style.display = 'none';
+        } else {
+            var infoPatient = document.getElementsByClassName('infoPatient');
+            infoPatient[0].style.display = 'block';
+            var notPatient = document.getElementsByClassName('notPatient');
+            notPatient[0].style.display = 'none';
+            document.getElementById("namePc").textContent = '';
+            document.getElementById("namePc").textContent = data.name;
+            document.getElementById("cpfPc").textContent = '';
+            document.getElementById("cpfPc").textContent = data.cpf;
+            document.getElementById("phonePc").textContent = '';
+            document.getElementById("phonePc").textContent = data.phoneNumber;
+        }
+        document.getElementById("PatientId").innerHTML = '';
+        document.getElementById("PatientId").value = data.id;
+
+    }
+
+    function FillExamRegistrationSelect(param) {
+        var exam = document.getElementsByClassName('examArea');
+        exam[0].style.display = 'block';
+        var data = httpGet('/AppointmentConsultation/FillExamRegistrationByIdType?id', param.value);
+        console.log(data);
+        var s = '<option value="-1" >Selecione o Exame ...</option>'
+        for (var i = 0; i < data.length; i++) {
+            s += '<option value="' + data[i].id + '">' + data[i].name + '</option>'
+        }
+        document.getElementById("ExamRegistrationId").innerHTML = '';
+        document.getElementById("ExamRegistrationId").innerHTML = s;
+
+    }
+
+
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false);
+        xmlHttp.send(null);
+        return JSON.parse(xmlHttp.responseText);
+    }
+
+    function httpGet(theUrl, data) {
+        var xmlHttp = new XMLHttpRequest();
+        theUrl = theUrl + "=" + data;
+        xmlHttp.open("GET", theUrl, false);
+        xmlHttp.send(data);
+        return JSON.parse(xmlHttp.responseText);
+    }
+
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

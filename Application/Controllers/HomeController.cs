@@ -1,6 +1,7 @@
 ﻿using Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +13,18 @@ namespace Application.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDashboardService _dashboardService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDashboardService dashboardService)
         {
+            _dashboardService = dashboardService;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var dashboard =  _dashboardService.GetDashboard();
+            return View(dashboard);
         }
 
         public IActionResult Privacy()

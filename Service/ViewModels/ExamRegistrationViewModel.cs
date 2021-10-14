@@ -22,13 +22,15 @@ namespace Service.ViewModels
         [MaxLength(1000, ErrorMessage = "O Campo precisa ter no maximo 1000 caracteres")]
         public string Note { get; set; }
 
-        [Display(Name = "Id do Paciente")]
+        [Display(Name = "Id do Tipo do Exame")]
         [Required(ErrorMessage = "Erro no campo Id do Paciente")]
         public int TypeOfExamId { get; set; }
 
         public TypeOfExamViewModel TypeOfExam { get; set; }
 
         public bool IsValid { get; set; }
+
+        public IList<string> Erros { get; set; }
 
     }
 }

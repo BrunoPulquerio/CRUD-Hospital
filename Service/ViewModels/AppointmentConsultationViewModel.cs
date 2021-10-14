@@ -33,7 +33,16 @@ namespace Service.ViewModels
 
         public PatientViewModel Patient { get; set; }
 
+        [Display(Name = "Tipo do Exame")]
+
+        public int TypeOfExamId { get; set; }
+
+
+        public TypeOfExamViewModel TypeOfExam { get; set; }
+
         public bool IsValid { get; set; }
+
+        public IList<string> Erros { get; set; }
 
     }
 }

@@ -3,10 +3,29 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>PatientViewModel</h4>
+@if (Model != null)
+{
+    @if (!Model.IsValid)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+
+            <b>Erros de Validação</b> <br />
+            @foreach (var alt in Model.Erros)
+            {
+                <p>@alt</p>
+            }
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Birthday" class="control-label"></label>
-                <input asp-for="Birthday" class="form-control" />
+                <input asp-for="Birthday" type="date" class="form-control" />
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,7 +71,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 <script>
@@ -65,4 +84,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-@Scripts.Render("~/bundles/inputmask")

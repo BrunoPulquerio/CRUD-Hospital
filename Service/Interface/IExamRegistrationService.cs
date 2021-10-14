@@ -19,5 +19,7 @@ namespace Service.Interface
 
         ExamRegistrationViewModel Delete(int Id);
 
+        IEnumerable<ExamRegistrationViewModel> GetByTypeOfExam(int id);
+
     }
 }

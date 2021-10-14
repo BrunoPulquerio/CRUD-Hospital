@@ -22,5 +22,7 @@ namespace Service.ViewModels
         [MaxLength(1000, ErrorMessage = "O campo precisa ter no maximo 100 caracteres")]
         public string Description { get; set; }
         public bool IsValid { get; set; }
+
+        public IList<string> Erros { get; set; }
     }
 }

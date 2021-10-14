@@ -28,6 +28,7 @@ namespace Application.Controllers
         public ActionResult Details(int id)
         {
             var patient = _patientService.GetbyId(id);
+            patient.IsValid = true;
             return View(patient);
         }
 
@@ -54,6 +55,7 @@ namespace Application.Controllers
         public ActionResult Edit(int id)
         {
             var patient = _patientService.GetbyId(id);
+            patient.IsValid = true;
             return View(patient);
         }
 
@@ -83,18 +85,12 @@ namespace Application.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(PatientViewModel obj)
         {
-
-            if (ModelState.IsValid)
-            {
                 var patient = _patientService.Delete(obj.Id);
                 if (!patient.IsValid)
                 {
                     return View(patient);
                 }
                 return RedirectToAction("Index");
-            }
-            return View(obj);
-
         }
     }
 }

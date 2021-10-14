@@ -29,6 +29,7 @@ namespace Application.Controllers
         public ActionResult Details(int id)
         {
             var typeofexam = _typeofexamService.GetbyId(id);
+            typeofexam.IsValid = true;
             return View(typeofexam);
         }
 
@@ -56,6 +57,7 @@ namespace Application.Controllers
         public ActionResult Edit(int id)
         {
             var typeofexam = _typeofexamService.GetbyId(id);
+            typeofexam.IsValid = true;
             return View(typeofexam);
         }
 
@@ -86,17 +88,12 @@ namespace Application.Controllers
         public ActionResult Delete(TypeOfExamViewModel obj)
         {
 
-            if (ModelState.IsValid)
-            {
                 var typeofexam = _typeofexamService.Delete(obj.Id);
                 if (!typeofexam.IsValid)
                 {
                     return View(typeofexam);
                 }
                 return RedirectToAction("Index");
-            }
-            return View(obj);
-
         }
     }
 }
