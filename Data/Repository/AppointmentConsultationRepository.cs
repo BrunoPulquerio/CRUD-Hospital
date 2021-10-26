@@ -54,7 +54,7 @@ namespace Data.Repository
                  .Include(x => x.ExameRegistration)
                   .ThenInclude(x => x.TypeOfExam)
                  .Include(x => x.Patient)
-                .Skip(1)
+                .Skip(0)
                 .Take(5)
                 .ToList();
 
