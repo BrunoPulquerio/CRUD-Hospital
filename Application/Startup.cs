@@ -29,6 +29,14 @@ namespace Application
             services.AddAutoMapperConfig();
             services.AddDependencyInjectionConfig();
             services.AddControllersWithViews();
+
+            services.AddFluentValidation(x =>
+            {
+                x.DisableDataAnnotationsValidation = true;
+                x.ImplicitlyValidateChildProperties = true;
+                x.RegisterValidatorsFromAssemblyContaining<PatientValidator>();
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

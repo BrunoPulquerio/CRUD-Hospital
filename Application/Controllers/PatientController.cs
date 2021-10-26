@@ -44,11 +44,13 @@ namespace Application.Controllers
             if (ModelState.IsValid)
             {
                 var patient = _patientService.Create(obj);
-                if (!patient.IsValid) {
+                if (!patient.IsValid)
+                {
                     return View(patient);
                 }
                 return RedirectToAction("Index");
             }
+            obj.IsValid = true;
             return View(obj);
         }
 
