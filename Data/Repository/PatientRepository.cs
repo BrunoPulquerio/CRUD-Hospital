@@ -30,5 +30,14 @@ namespace Data.Repository
 
             return obj;
         }
+        
+         public override IList<Patient> Select() =>
+         {
+           var obj = CurrentSet
+                 .FirstOrDefault();
+
+            return obj;
+         }
+            
     }
 }
